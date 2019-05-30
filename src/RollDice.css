@@ -1,0 +1,10 @@
+.btn {
+  width: 6rem;
+  height: 3rem;
+  border-radius: 10%;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: yellow;
+}
