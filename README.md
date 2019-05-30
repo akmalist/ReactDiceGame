@@ -1,2 +1,0 @@
-# ReactDiceGame
-Created with CodeSandbox
