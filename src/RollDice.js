@@ -1,40 +1,45 @@
 import React, { Component } from "react";
-// import { render } from "react-dom";
+import "./RollDice.css";
 
 import Die from "./Die";
 
 class RollDice extends Component {
+  static defaultProps = {
+    face: ["one", "two", "three", "four", "five", "six"]
+  };
   constructor(props) {
     super(props);
-    this.state = { dice: "one", dice2: "two" };
+    this.state = { dice: "one", dice2: "five", rolled: false };
     this.randDice = this.randDice.bind(this);
   }
 
   randDice() {
-    let randNum = Math.floor(Math.random() * 6 + 1);
-    if (randNum === 1) {
-      return this.setState({ dice: "one" });
-    } else if (randNum === 2) {
-      return this.setState({ dice: "two" });
-    } else if (randNum === 3) {
-      return this.setState({ dice: "three" });
-    } else if (randNum === 4) {
-      return this.setState({ dice: "four" });
-    } else if (randNum === 5) {
-      return this.setState({ dice: "five" });
-    } else {
-      return this.setState({ dice: "six" });
-    }
+    const rand1 = this.props.face[
+      Math.floor(Math.random() * this.props.face.length)
+    ];
+    const rand2 = this.props.face[
+      Math.floor(Math.random() * this.props.face.length)
+    ];
+    this.setState({ dice: rand1, dice2: rand2, rolled: true });
+
+    setTimeout(() => this.setState({ rolled: false }), 1000);
   }
+
   render() {
     return (
       <div>
         {" "}
-        <h1>Test!</h1>
-        <Die />
-        <Die />
-        <h2>{this.state.dice}</h2>
-        <button onClick={this.randDice}>Roll Dice</button>
+        <Die num={this.state.dice} rolling={this.state.rolled} />
+        <Die num={this.state.dice2} rolling={this.state.rolled} />
+        <div>
+          <button
+            className="btn"
+            onClick={this.randDice}
+            disabled={this.state.rolled}
+          >
+            {this.state.rolled ? "Rolling..." : "Roll "}
+          </button>
+        </div>
       </div>
     );
   }
